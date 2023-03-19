@@ -20,18 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class UsuarioController {
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
-    PapelRepository papelRepository;
+    private PapelRepository papelRepository;
 
     @PostMapping
     public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid UsuarioDto usuarioDto){
-        //UsuarioService usuarioService = new UsuarioService();
-        //Usuario usuario = usuarioService.salvar(usuarioDto);
         Papel papel = papelRepository.findById(usuarioDto.papel()).orElseThrow(() -> new EntityNotFoundException("Entidade não mapeada"));
         Usuario usuario = new Usuario(usuarioDto, papel);
-        usuarioRepository.save(usuario);
+        UsuarioService usuarioService = new UsuarioService();
+        usuarioService.salvar(usuario);
+        //usuarioRepository.save(usuario);
 
         return ResponseEntity.ok(usuario);
     }

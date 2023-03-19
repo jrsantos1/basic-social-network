@@ -1,39 +1,30 @@
 package br.com.jrsantos.socialnetwork.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-public class Curso {
-
+@Entity
+@Table(name = "area_curso")
+public class AreaCurso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     @Column(name = "nome")
-    private String nome;
+    private String nomeArea;
 
-    @OneToOne
-    private TipoCurso tipo;
-
-    @OneToOne
-    private AreaCurso area;
-
-    @OneToOne
-    private SubAreaCurso sub_area;
-
-    @Column(name = "duracao_em_semestres")
-    private Integer duracao_em_semestres;
-
-    @OneToOne
-    private Instituicao instituicao;
-
+    @NotBlank
+    @Column(name = "ds_area")
+    private String descricao;
 
 }
