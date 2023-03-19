@@ -1,0 +1,38 @@
+package br.com.jrsantos.socialnetwork.controllers;
+
+import br.com.jrsantos.socialnetwork.dtos.UsuarioDto;
+import br.com.jrsantos.socialnetwork.models.Papel;
+import br.com.jrsantos.socialnetwork.models.Usuario;
+import br.com.jrsantos.socialnetwork.repositories.PapelRepository;
+import br.com.jrsantos.socialnetwork.repositories.UsuarioRepository;
+import br.com.jrsantos.socialnetwork.services.UsuarioService;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/usuario")
+public class UsuarioController {
+
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
+    @Autowired
+    PapelRepository papelRepository;
+
+    @PostMapping
+    public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid UsuarioDto usuarioDto){
+        //UsuarioService usuarioService = new UsuarioService();
+        //Usuario usuario = usuarioService.salvar(usuarioDto);
+        Papel papel = papelRepository.findById(usuarioDto.papel()).orElseThrow(() -> new EntityNotFoundException("Entidade não mapeada"));
+        Usuario usuario = new Usuario(usuarioDto, papel);
+        usuarioRepository.save(usuario);
+
+        return ResponseEntity.ok(usuario);
+    }
+}
