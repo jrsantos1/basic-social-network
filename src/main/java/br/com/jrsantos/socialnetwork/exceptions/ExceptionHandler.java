@@ -1,5 +1,9 @@
 package br.com.jrsantos.socialnetwork.exceptions;
 
-public class HandlerException {
-        
+
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class ExceptionHandler {
+
 }

@@ -31,5 +31,17 @@ public class CursoController {
         return ResponseEntity.ok(curso);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity excluir(@PathVariable Long id){
+        cursoService.excluir(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity atualizar(@RequestBody @Valid CursoDto cursoDto, @PathVariable Long id){
+        Curso curso = cursoService.atualizarCurso(cursoDto, id);
+        return ResponseEntity.ok(curso);
+    }
+
 
 }

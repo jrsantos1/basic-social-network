@@ -37,21 +37,47 @@ public class CursoService {
         return curso;
     }
 
-    public Curso cadastrar(CursoDto cursoDto){
+    public Curso templateCadastro(CursoDto cursoDto, Curso curso){
 
-    TipoCurso tipoCurso = tipoCursoRepository.findById(cursoDto.tipo()).orElseThrow(() -> new EntityNotFoundException("Entidade não mapeada"));
-    Instituicao instituicao = instituicaoRepository.findById(cursoDto.instituicao()).orElseThrow(() -> new EntityNotFoundException("Entidade não mapeada"));
-    AreaCurso areaCurso = areaCursoRepository.findById(cursoDto.area()).orElseThrow(() -> new EntityNotFoundException("Entidade não mapeada"));
-    SubAreaCurso subAreaCurso = subAreaCursoRepository.findById(cursoDto.subArea()).orElseThrow(() -> new EntityNotFoundException("Entidade não mapeada"));
+        TipoCurso tipoCurso = tipoCursoRepository.findById(cursoDto.tipo()).orElseThrow(() -> new EntityNotFoundException("Entidade não mapeada"));
+        Instituicao instituicao = instituicaoRepository.findById(cursoDto.instituicao()).orElseThrow(() -> new EntityNotFoundException("Entidade não mapeada"));
+        AreaCurso areaCurso = areaCursoRepository.findById(cursoDto.area()).orElseThrow(() -> new EntityNotFoundException("Entidade não mapeada"));
+        SubAreaCurso subAreaCurso = subAreaCursoRepository.findById(cursoDto.subArea()).orElseThrow(() -> new EntityNotFoundException("Entidade não mapeada"));
 
-    Curso curso = toCursoResponse(cursoDto, tipoCurso, instituicao, areaCurso, subAreaCurso);
+        curso = toCursoResponse(cursoDto, tipoCurso, instituicao, areaCurso, subAreaCurso);
 
-    cursoRepository.save(curso);
-
-    return curso;
-
+        return curso;
 
     }
+
+    public Curso cadastrar(CursoDto cursoDto){
+
+    Curso curso = new Curso();
+
+    Curso cursoCriado = templateCadastro(cursoDto,curso);
+
+    cursoRepository.save(cursoCriado);
+
+    return cursoCriado;
+
+    }
+
+    public Curso atualizarCurso(CursoDto cursoDto, Long id){
+
+        Curso curso = cursoRepository.getReferenceById(id);
+        Curso cursoAtualizado = templateCadastro(cursoDto, curso);
+        cursoRepository.save(cursoAtualizado);
+        return cursoAtualizado;
+
+    }
+
+    public Curso excluir(Long id){
+        Curso curso = cursoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Conta não encontrada"));
+        cursoRepository.delete(curso);
+        return curso;
+    }
+
+
 
     public Curso consultarPorId(Long id){
         Optional<Curso> curso = cursoRepository.findById(id);
