@@ -18,8 +18,7 @@ public class Postagem {
     private Long id;
 
     @OneToOne
-    @PrimaryKeyJoinColumn(name = "id")
-    private Conta conta_id;
+    private Conta conta;
 
     @Column(name = "conteudo")
     private String conteudo;

@@ -1,5 +1,6 @@
 package br.com.jrsantos.socialnetwork.models;
 
+import br.com.jrsantos.socialnetwork.dtos.CursoDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,6 +35,5 @@ public class Curso {
 
     @OneToOne
     private Instituicao instituicao;
-
 
 }
