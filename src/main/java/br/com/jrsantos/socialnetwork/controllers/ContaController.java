@@ -45,7 +45,7 @@ public class ContaController {
     @DeleteMapping("/{id}")
     public ResponseEntity excluir(Long id){
         Conta conta = contaService.excluir(id);
-        return ResponseEntity.ok(conta);
+        return ResponseEntity.noContent().build();
     }
 
 }
