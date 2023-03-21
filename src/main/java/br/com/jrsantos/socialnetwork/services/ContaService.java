@@ -48,8 +48,14 @@ public class ContaService {
 
     }
     public Conta cadastrar(ContaDto contaDto){
-        Conta conta = new Conta();
 
+        Conta conta = new Conta();
+        Conta contaCriada = templateCadastro(contaDto, conta);
+        return contaRepository.save(contaCriada);
+
+    }
+
+    public Conta templateCadastro(ContaDto contaDto, Conta conta){
         Curso curso = cursoRepository.findById(contaDto.curso_id()).orElseThrow(() -> new EntityNotFoundException("Entidade não mapeada"));
         Turma turma = turmaRepository.findById(contaDto.turma_id()).orElseThrow(() -> new EntityNotFoundException("Entidade não mapeada"));
         Usuario usuario = usuarioRepository.findById(contaDto.usuario_id()).orElseThrow(() -> new EntityNotFoundException("Entidade não mapeada"));
@@ -70,8 +76,20 @@ public class ContaService {
         conta.setInstituicao(curso.getInstituicao());
         conta.setUsuario(usuario);
 
-        return contaRepository.save(conta);
+        return conta;
+    }
 
+    public Conta excluir(Long id){
+        Conta conta = contaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Conta não encontrada"));
+        contaRepository.delete(conta);
+        return conta;
+    }
+
+    public Conta atualizar(ContaDto contaDto, Long id){
+
+        Conta conta = contaRepository.findById(id).get();
+        Conta contaAtualizada = templateCadastro(contaDto, conta);
+        return contaRepository.save(contaAtualizada);
     }
 
 }
