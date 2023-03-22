@@ -1,8 +1,11 @@
 package br.com.jrsantos.socialnetwork.controllers;
 
+import br.com.jrsantos.socialnetwork.dtos.FotoDto;
 import br.com.jrsantos.socialnetwork.dtos.curso.CursoDto;
 import br.com.jrsantos.socialnetwork.models.Curso;
+import br.com.jrsantos.socialnetwork.models.Foto;
 import br.com.jrsantos.socialnetwork.services.CursoService;
+import br.com.jrsantos.socialnetwork.services.FotoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,31 +19,31 @@ import java.net.URI;
 public class FotoController {
 
     @Autowired
-    private CursoService cursoService;
+    private FotoService fotoService;
 
     @PostMapping
-    public ResponseEntity cadastrar(@RequestBody @Valid CursoDto cursoDto, UriComponentsBuilder uriBuilder){
+    public ResponseEntity cadastrar(@RequestBody @Valid FotoDto fotoDto, UriComponentsBuilder uriBuilder){
 
-        Curso curso = cursoService.cadastrar(cursoDto);
-        URI uri = uriBuilder.path("curso/{id}").buildAndExpand(curso.getId()).toUri();
-        return ResponseEntity.created(uri).body(curso);
+        Foto foto = fotoService.salvar(fotoDto);
+        URI uri = uriBuilder.path("curso/{id}").buildAndExpand(foto.getId()).toUri();
+        return ResponseEntity.created(uri).body(foto);
     }
     @GetMapping("/{id}")
     public ResponseEntity consultarPorId(@PathVariable Long id){
-        Curso curso = cursoService.consultarPorId(id);
-        return ResponseEntity.ok(curso);
+        Foto foto = fotoService.getFoto(id);
+        return ResponseEntity.ok(foto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity excluir(@PathVariable Long id){
-        cursoService.excluir(id);
+        fotoService.excluirFoto(id);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity atualizar(@RequestBody @Valid CursoDto cursoDto, @PathVariable Long id){
-        Curso curso = cursoService.atualizarCurso(cursoDto, id);
-        return ResponseEntity.ok(curso);
+    public ResponseEntity atualizar(@RequestBody @Valid FotoDto fotoDto, @PathVariable Long id){
+        Foto foto = fotoService.atualizarFoto(fotoDto, id);
+        return ResponseEntity.ok(foto);
     }
 
 
