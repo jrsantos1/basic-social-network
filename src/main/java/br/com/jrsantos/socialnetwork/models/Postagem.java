@@ -1,6 +1,7 @@
 package br.com.jrsantos.socialnetwork.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class Postagem {
     private Long id;
 
     @OneToOne
+    @NotNull
     private Conta conta;
 
     @Column(name = "conteudo")

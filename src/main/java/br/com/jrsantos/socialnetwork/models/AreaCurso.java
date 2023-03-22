@@ -20,10 +20,12 @@ public class AreaCurso {
     private Long id;
 
     @NotBlank
+    @NotNull
     @Column(name = "nome")
     private String nomeArea;
 
     @NotBlank
+    @NotNull
     @Column(name = "ds_area")
     private String descricao;
 

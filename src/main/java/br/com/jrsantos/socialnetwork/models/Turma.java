@@ -3,6 +3,7 @@ package br.com.jrsantos.socialnetwork.models;
 import br.com.jrsantos.socialnetwork.util.enums.Letra;
 import br.com.jrsantos.socialnetwork.util.enums.Semestre;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,19 +24,21 @@ public class Turma {
     private Long id;
 
     @OneToOne()
+    @NotNull
     private Curso curso;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "ano")
+    @NotNull
     private LocalDate data;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "semestre")
-    private Semestre semestre;
+    @NotNull
+    private String semestre;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "letra")
-    private Letra letra;
+    @NotNull
+    private String letra;
 
 
 }

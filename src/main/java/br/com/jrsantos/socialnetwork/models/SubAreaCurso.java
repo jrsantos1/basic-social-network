@@ -24,10 +24,12 @@ public class SubAreaCurso {
     private AreaCurso area_curso;
 
     @NotBlank
+    @NotNull
     @Column(name = "nome")
     private String nomeSubArea;
 
     @NotBlank
+    @NotNull
     @Column(name = "ds_sub_area")
     private String descricao;
 }

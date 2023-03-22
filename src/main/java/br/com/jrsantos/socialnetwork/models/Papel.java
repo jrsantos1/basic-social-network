@@ -1,6 +1,7 @@
 package br.com.jrsantos.socialnetwork.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class Papel {
     private Long id;
 
     @Column(name = "descricao")
+    @NotNull
     private String descricao;
 
 }
