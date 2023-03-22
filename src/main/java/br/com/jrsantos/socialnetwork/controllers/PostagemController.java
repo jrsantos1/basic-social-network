@@ -17,14 +17,12 @@ public class PostagemController {
     @Autowired
     private PostagemService postagemService;
 
-
     @PostMapping
     public ResponseEntity cadastrar(@RequestBody @Valid PostagemDto postagemDto, UriComponentsBuilder uriBuilder){
 
         Postagem postagem = postagemService.cadastrar(postagemDto);
         URI uri = uriBuilder.path("/{id}").buildAndExpand(postagem).toUri();
         return ResponseEntity.created(uri).body(postagem);
-
     }
 
     @GetMapping("/{id}")
