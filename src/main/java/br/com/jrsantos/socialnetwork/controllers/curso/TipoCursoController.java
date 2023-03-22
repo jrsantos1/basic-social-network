@@ -1,7 +1,7 @@
-package br.com.jrsantos.socialnetwork.controllers;
+package br.com.jrsantos.socialnetwork.controllers.curso;
 
-import br.com.jrsantos.socialnetwork.dtos.CursoDto;
-import br.com.jrsantos.socialnetwork.models.*;
+import br.com.jrsantos.socialnetwork.dtos.curso.CursoDto;
+import br.com.jrsantos.socialnetwork.models.Curso;
 import br.com.jrsantos.socialnetwork.services.CursoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/curso")
-public class CursoController {
+@RequestMapping("/curso/tipo_curso")
+public class TipoCursoController {
 
     @Autowired
     private CursoService cursoService;

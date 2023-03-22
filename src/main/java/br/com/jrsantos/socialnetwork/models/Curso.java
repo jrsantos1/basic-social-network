@@ -1,6 +1,5 @@
 package br.com.jrsantos.socialnetwork.models;
 
-import br.com.jrsantos.socialnetwork.dtos.CursoDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

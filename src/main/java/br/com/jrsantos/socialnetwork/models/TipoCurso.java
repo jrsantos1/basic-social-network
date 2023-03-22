@@ -18,6 +18,10 @@ public class TipoCurso {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "nome")
+    @NotNull
+    private String nome;
+
     @Column(name = "ds_tipo")
     @NotBlank
     private String ds_tipo;

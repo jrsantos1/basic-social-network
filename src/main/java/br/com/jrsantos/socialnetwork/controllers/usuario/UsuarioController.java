@@ -1,4 +1,4 @@
-package br.com.jrsantos.socialnetwork.controllers;
+package br.com.jrsantos.socialnetwork.controllers.usuario;
 
 import br.com.jrsantos.socialnetwork.dtos.UsuarioDto;
 import br.com.jrsantos.socialnetwork.models.Papel;
