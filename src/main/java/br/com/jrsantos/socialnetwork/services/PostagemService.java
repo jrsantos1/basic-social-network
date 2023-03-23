@@ -43,6 +43,21 @@ public class PostagemService {
         return postagem;
     }
 
+    public Postagem atualizar(PostagemDto postagemDto, Long id){
+        Postagem postagem = postagemRepository.getReferenceById(id);
+        Foto foto = fotoRepository.findById(postagemDto.foto_id()).orElseThrow(() -> new EntityNotFoundException("A foto não foi localizada"));
+        Conta conta = contaRepository.findById(postagemDto.conta_id()).orElseThrow(() -> new EntityNotFoundException("A conta não exite"));
+        postagem.setConta(conta);
+        postagem.setFoto(foto);
+        postagem.setConteudo(postagemDto.conteudo());
+        return postagem;
+
+    }
+
+    public void excluir(Long id){
+        postagemRepository.deleteById(id);
+    }
+
     public Postagem consultarPorId(Long id){
         Optional<Postagem> postagem = postagemRepository.findById(id);
 

@@ -31,5 +31,17 @@ public class PostagemController {
         return ResponseEntity.ok(postagem);
     }
 
+    @PostMapping("/{id}")
+    public ResponseEntity atualizarPorId(@RequestBody @Valid PostagemDto postagemDto, Long id){
+        Postagem postagem = postagemService.atualizar(postagemDto, id);
+        return ResponseEntity.ok(postagem);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity excluirPorid(Long id){
+        postagemService.excluir(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
