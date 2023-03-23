@@ -7,10 +7,8 @@ import br.com.jrsantos.socialnetwork.services.TurmaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -27,6 +25,24 @@ public class TurmaController {
         Turma turma = turmaService.cadastrar(turmaCadastroDto);
         URI uri = uriBuilder.path("/{id}").buildAndExpand(turma.getId()).toUri();
         return ResponseEntity.created(uri).body(turma);
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity atualizar(@RequestBody @Valid TurmaCadastroDto turmaCadastroDto, Long id){
+        Turma turma = turmaService.atualizarTurma(turmaCadastroDto, id);
+        return ResponseEntity.ok(turma);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity excluir(Long id){
+        turmaService.excluirTurma(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping ("/{id}")
+    public ResponseEntity getTurma(Long id){
+        Turma turma = turmaService.getTurma(id);
+        return ResponseEntity.ok(turma);
     }
 
 }

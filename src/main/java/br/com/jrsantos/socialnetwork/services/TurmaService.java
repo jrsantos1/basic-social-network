@@ -44,6 +44,9 @@ public class TurmaService {
         turmaRepository.deleteById(id);
     }
 
+    public Turma getTurma(Long id){
+        return turmaRepository.findById(id).get();
+    }
 
 
 }

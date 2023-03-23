@@ -11,6 +11,9 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/usuario")
@@ -26,17 +29,24 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid UsuarioDto usuarioDto){
-        Papel papel = papelRepository.findById(usuarioDto.papel()).orElseThrow(() -> new EntityNotFoundException("Entidade não mapeada"));
-        Usuario usuario = new Usuario(usuarioDto, papel);
-        usuarioService.salvar(usuario);
-        //usuarioRepository.save(usuario);
-
-        return ResponseEntity.ok(usuario);
+    public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid UsuarioDto usuarioDto, UriComponentsBuilder uriBuilder){
+        Usuario usuario = usuarioService.salvar(usuarioDto);
+        URI uri = uriBuilder.path("/{id}").buildAndExpand(usuario.getId()).toUri();
+        return ResponseEntity.created(uri).body(usuario);
     }
     @GetMapping("/{id}")
     public ResponseEntity consultarPorId(@PathVariable Long id){
         Usuario usuario = usuarioService.consultarPorId(id);
         return ResponseEntity.ok(usuario);
     }
+
+    @PostMapping
+    public ResponseEntity atualizar(@RequestBody @Valid Usuario usuario){
+        // usuarioService.atualizarUsuario()
+
+        //todo refactor usuarioService e demais services, recendo id diretamente pelo request body e nao pela url
+
+        return ResponseEntity.noContent().build();
+    }
+
 }
