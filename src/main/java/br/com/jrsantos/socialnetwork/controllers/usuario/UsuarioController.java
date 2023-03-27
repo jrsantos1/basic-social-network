@@ -20,7 +20,6 @@ import java.net.URI;
 public class UsuarioController {
 
     //@Autowired
-    //private UsuarioRepository usuarioRepository;
 
     @Autowired
     private PapelRepository papelRepository;
@@ -40,7 +39,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuario);
     }
 
-    @PostMapping
+    @PostMapping("/{id}")
     public ResponseEntity atualizar(@RequestBody @Valid Usuario usuario){
         // usuarioService.atualizarUsuario()
 

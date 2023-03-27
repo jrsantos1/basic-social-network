@@ -12,9 +12,9 @@ public class FotoService {
     @Autowired
     private FotoRepository fotoRepository;
 
-    public Foto salvar(FotoDto fotoDto){
+    public Foto salvar(byte[] cd_foto){
         Foto foto = new Foto();
-        foto.setCd_foto(fotoDto.cd_foto());
+        foto.setCd_foto(cd_foto);
         return fotoRepository.save(foto);
     }
     public Foto atualizarFoto(FotoDto fotoDto, Long id){

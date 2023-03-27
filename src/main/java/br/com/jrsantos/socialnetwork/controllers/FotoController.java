@@ -24,7 +24,7 @@ public class FotoController {
     @PostMapping
     public ResponseEntity cadastrar(@RequestBody @Valid FotoDto fotoDto, UriComponentsBuilder uriBuilder){
 
-        Foto foto = fotoService.salvar(fotoDto);
+        Foto foto = fotoService.salvar(fotoDto.cd_foto());
         URI uri = uriBuilder.path("curso/{id}").buildAndExpand(foto.getId()).toUri();
         return ResponseEntity.created(uri).body(foto);
     }
