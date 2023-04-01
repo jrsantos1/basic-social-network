@@ -21,6 +21,7 @@ public class ExceptionHandlerEdit {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity handlerError400(MethodArgumentNotValidException ex) {
         var erros = ex.getFieldErrors();
+        String nome = "";
         return ResponseEntity.badRequest().body(erros.stream().map(DadosErroValidacao::new).toList());
 
     }
